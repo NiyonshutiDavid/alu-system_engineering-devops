@@ -1,5 +1,4 @@
-Host ubuntu
-    HostName 3.88.180.138
-    User ubuntu
+Host *
     IdentityFile ~/.ssh/school
     PasswordAuthentication no
+
