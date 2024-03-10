@@ -1,0 +1,30 @@
+---
+- name: Configure Nginx
+  hosts: 54.87.30.41
+  become: yes
+
+  tasks:
+    - name: Update Nginx default configuration
+      lineinfile:
+        path: /etc/nginx/sites-available/default
+        line: |
+          server {
+              listen 80 default_server;
+              listen [::]:80 default_server;
+              root /var/www/html;
+              index index.html index.htm index.nginx-debian.html;
+              server_name _;
+              location / {
+                  try_files $uri $uri/ =404;
+                  echo "Holberton School for the win!";
+              }
+          }
+      notify:
+        - Restart Nginx
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
